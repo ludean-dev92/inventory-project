@@ -1,1 +1,67 @@
-repo
+# Inventory Project
+
+## Descripción
+Este proyecto es un sistema de inventario con manejo de productos y transacciones (compras y ventas).  
+Incluye:
+
+- Backend en .NET core
+- Base de datos en SQL Server/MySQL
+- Front-end opcional en React con Material UI
+
+---
+
+## Requisitos
+
+- Docker (opcional, para levantar SQL Server)
+- .NET 8 SDK
+- Node.js y npm (solo si usarás el front-end)
+- SQL Server o MySQL
+
+---
+
+## Configuración de la Base de Datos
+
+### Opción 1: Usar el script SQL
+
+1. Ejecuta `dbscript.sql` en tu gestor de base de datos favorito para crear la base y las tablas.
+2. Ajusta la cadena de conexión en `appsettings.json`:
+
+```json
+"ConnectionStrings": {
+  "InventoryDbConnection": "Server=db,1433;Database=InventoryDB;User=sa;Password=Ludean92!;"
+}
+
+##Levantar la API
+Ejecuta en la terminal
+cd InventoryApi
+dotnet run
+
+##Levantar Frontend
+cd frontend
+npm install
+npm start
+
+##Uso de la API
+Productos
+
+-GET /api/products → Lista productos
+
+-POST /api/products → Crear un producto nuevo
+
+Transacciones
+
+-GET /api/transactions → Lista transacciones
+
+-POST /api/transactions → Registrar compra o venta (ajusta stock automáticamente)
+
+Nota: En Transactions, el campo Type solo acepta "Compra" o "Venta".
+
+##Notas##
+
+-Para ventas, el stock del producto se reduce automáticamente.
+
+-Para compras, el stock aumenta automáticamente.
+
+-Personaliza appsettings.json con tu información de conexión.
+
+############################################################
