@@ -1,0 +1,32 @@
+-- ==============================
+-- Estructura de la base de datos
+-- ==============================
+--Base de datos: inventoryDB
+CREATE DATABASE IF NOT EXISTS InventoryDB;
+USE InventoryDB;
+
+-- Tabla: Products
+CREATE TABLE Products (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    Price DECIMAL(18,2) NOT NULL DEFAULT 0,
+    Stock INT NOT NULL DEFAULT 0
+);
+
+-- Tabla: Transactions
+CREATE TABLE Transactions (
+    Id INT IDENTITY(1,1) PRIMARY KEY,
+    ProductId INT NOT NULL,
+    Type NVARCHAR(10) NOT NULL CHECK (Type IN ('Compra', 'Venta')),
+    Quantity INT NOT NULL CHECK (Quantity > 0),
+    UnitPrice DECIMAL(18,2) NOT NULL DEFAULT 0,
+    Total DECIMAL(18,2) NOT NULL DEFAULT 0,
+    Date DATETIME NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_Transactions_Products FOREIGN KEY (ProductId)
+        REFERENCES Products(Id)
+        ON DELETE CASCADE
+);
+
+-- ==============================
+-- Fin de la estructura
+-- ==============================
